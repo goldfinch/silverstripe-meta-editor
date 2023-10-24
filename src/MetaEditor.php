@@ -1,27 +1,27 @@
 <?php
 namespace Axllent\MetaEditor;
 
-use Axllent\MetaEditor\Forms\GridField\GridFieldLevelup;
-use Axllent\MetaEditor\Forms\MetaEditorDescriptionColumn;
-use Axllent\MetaEditor\Forms\MetaEditorPageColumn;
-use Axllent\MetaEditor\Forms\MetaEditorPageLinkColumn;
-use Axllent\MetaEditor\Forms\MetaEditorTitleColumn;
-use SilverStripe\Admin\ModelAdmin;
-use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Core\ClassInfo;
+use SilverStripe\Admin\ModelAdmin;
+use SilverStripe\View\Requirements;
+use TractorCow\Fluent\Model\Locale;
+use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Core\Injector\Injector;
-use SilverStripe\Forms\GridField\GridFieldAddNewButton;
-use SilverStripe\Forms\GridField\GridFieldDataColumns;
-use SilverStripe\Forms\GridField\GridFieldDeleteAction;
+use Axllent\MetaEditor\Forms\MetaEditorPageColumn;
+use Axllent\MetaEditor\Forms\MetaEditorTitleColumn;
 use SilverStripe\Forms\GridField\GridFieldEditButton;
+use Axllent\MetaEditor\Forms\MetaEditorPageLinkColumn;
+use SilverStripe\Forms\GridField\GridField_ActionMenu;
+use SilverStripe\Forms\GridField\GridFieldDataColumns;
+use SilverStripe\Forms\GridField\GridFieldPrintButton;
+use SilverStripe\Forms\GridField\GridFieldAddNewButton;
+use SilverStripe\Forms\GridField\GridFieldDeleteAction;
 use SilverStripe\Forms\GridField\GridFieldExportButton;
 use SilverStripe\Forms\GridField\GridFieldImportButton;
-use SilverStripe\Forms\GridField\GridFieldPrintButton;
-use SilverStripe\Forms\GridField\GridField_ActionMenu;
-use SilverStripe\Forms\GridField\GridField_ActionMenuItem;
-use SilverStripe\View\Requirements;
+use Axllent\MetaEditor\Forms\GridField\GridFieldLevelup;
 use TractorCow\Fluent\Extension\FluentSiteTreeExtension;
-use TractorCow\Fluent\Model\Locale;
+use Axllent\MetaEditor\Forms\MetaEditorDescriptionColumn;
+use SilverStripe\Forms\GridField\GridField_ActionMenuItem;
 
 class MetaEditor extends ModelAdmin
 {
@@ -145,6 +145,7 @@ class MetaEditor extends ModelAdmin
         $gridFieldName = $this->sanitiseClassName($this->modelClass);
 
         $grid = $form->Fields()->dataFieldByName($gridFieldName);
+
         if ($grid) {
             $config = $grid->getConfig();
             $config->removeComponentsByType(GridFieldAddNewButton::class);
@@ -188,7 +189,7 @@ class MetaEditor extends ModelAdmin
                         'MetaEditorPageColumn'        => 'Page',
                         'MetaEditorTitleColumn'       => 'Meta Title',
                         'MetaEditorDescriptionColumn' => 'Meta Description',
-                        'MetaEditorPageLinkColumn'    => '',
+                        // 'MetaEditorPageLinkColumn'    => '',
                     ]
                 );
 
@@ -227,6 +228,7 @@ class MetaEditor extends ModelAdmin
                 ]
             );
         }
+
         if (!empty($this->request->requestVar('EmptyMetaDescriptions'))) {
             $search_filter = true;
             $list          = $list->where(
@@ -260,9 +262,9 @@ class MetaEditor extends ModelAdmin
             }
         }
 
-        if (!$search_filter) {
-            $list = $list->filter('ParentID', $parent_id);
-        }
+        // if (!$search_filter) {
+        //     $list = $list->filter('ParentID', $parent_id);
+        // }
 
         $fluent = Injector::inst()->get(SiteTree::class)
             ->hasExtension(FluentSiteTreeExtension::class) && Locale::get()->count();

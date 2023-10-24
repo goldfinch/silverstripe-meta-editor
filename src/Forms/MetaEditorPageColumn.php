@@ -80,9 +80,9 @@ class MetaEditorPageColumn implements GridField_ColumnProvider
 
             if ($children->Count()) {
                 $output = '<p><a href="admin/meta-editor/?ParentID=' . $record->ID . '" class="btn btn-secondary font-icon-right-dir">
-                    <b>' . htmlspecialchars($record->MenuTitle) . ' <span class="font-icon-right-dirs"></span></b></a></p>';
+                    <b>' . htmlspecialchars($record->MenuTitle ?? '') . ' <span class="font-icon-right-dirs"></span></b></a></p>';
             } else {
-                $output = '<p><b>' . htmlspecialchars($record->MenuTitle) . '</b></p>';
+                $output = '<p><b>' . htmlspecialchars($record->MenuTitle ?? '') . '</b></p>';
             }
             $output .= '<p><a href="' . $record->Link() . '?stage=Stage" class="btn btn-secondary" target="_blank">/' .
             ltrim($record->RelativeLink(), '/') . '</a></p>';

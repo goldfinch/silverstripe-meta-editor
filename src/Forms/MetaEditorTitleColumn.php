@@ -215,22 +215,31 @@ class MetaEditorTitleColumn extends GridFieldDataColumns implements GridField_Co
     {
         $data = $request->postVar($gridField->getName());
 
+        $modelClass = $gridField->getList()->dataClass;
+        $modelClassDB = (new \ReflectionClass($modelClass))->getShortName();
+
         $title_field = Config::inst()
             ->get(MetaEditor::class, 'meta_title_field');
         $description_field = Config::inst()
             ->get(MetaEditor::class, 'meta_description_field');
 
-        $sitetree      = 'SiteTree';
-        $sitetree_live = 'SiteTree_Live';
-        $fluent        = Injector::inst()
-            ->get(SiteTree::class)
-            ->hasExtension(FluentSiteTreeExtension::class)
-        && Locale::get()->count();
+        $sitetree      = $modelClassDB;
+        $sitetree_live = $modelClassDB . '_Live';
 
-        if ($fluent) {
-            $sitetree      = 'SiteTree_Localised';
-            $sitetree_live = 'SiteTree_Localised_Live';
-            $locale        = FluentState::singleton()->getLocale();
+        $fluent = false;
+
+        if (SiteTree::class == $modelClass)
+        {
+            $fluent        = Injector::inst()
+                ->get(SiteTree::class)
+                ->hasExtension(FluentSiteTreeExtension::class)
+            && Locale::get()->count();
+
+            if ($fluent) {
+                $sitetree      = 'SiteTree_Localised';
+                $sitetree_live = 'SiteTree_Localised_Live';
+                $locale        = FluentState::singleton()->getLocale();
+            }
         }
 
         foreach ($data as $id => $params) {
