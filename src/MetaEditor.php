@@ -93,7 +93,7 @@ class MetaEditor extends ModelAdmin
      *
      * @var string
      */
-    private static $menu_title = 'Meta Editor';
+    private static $menu_title = 'Meta editor';
 
     /**
      * CMS url segment
