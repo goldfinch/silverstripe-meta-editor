@@ -7,8 +7,11 @@ use SilverStripe\View\Requirements;
 use TractorCow\Fluent\Model\Locale;
 use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Core\Injector\Injector;
+use Goldfinch\Seo\Forms\GridField\MetaEditorSEOColumn;
 use Axllent\MetaEditor\Forms\MetaEditorPageColumn;
 use Axllent\MetaEditor\Forms\MetaEditorTitleColumn;
+use SilverStripe\Forms\GridField\GridFieldButtonRow;
+use SilverStripe\Forms\GridField\GridFieldDetailForm;
 use SilverStripe\Forms\GridField\GridFieldEditButton;
 use Axllent\MetaEditor\Forms\MetaEditorPageLinkColumn;
 use SilverStripe\Forms\GridField\GridField_ActionMenu;
@@ -22,6 +25,7 @@ use Axllent\MetaEditor\Forms\GridField\GridFieldLevelup;
 use TractorCow\Fluent\Extension\FluentSiteTreeExtension;
 use Axllent\MetaEditor\Forms\MetaEditorDescriptionColumn;
 use SilverStripe\Forms\GridField\GridField_ActionMenuItem;
+use Goldfinch\Seo\Forms\GridField\GridFieldEditNoInlineButton;
 
 class MetaEditor extends ModelAdmin
 {
@@ -153,9 +157,10 @@ class MetaEditor extends ModelAdmin
             $config->removeComponentsByType(GridFieldEditButton::class);
             $config->removeComponentsByType(GridFieldExportButton::class);
             $config->removeComponentsByType(GridFieldImportButton::class);
-            $config->removeComponentsByType(GridFieldDeleteAction::class);
-            $config->removeComponentsByType(GridField_ActionMenu::class);
-            $config->removeComponentsByType(GridField_ActionMenuItem::class);
+
+            // $config->removeComponentsByType(GridFieldDeleteAction::class);
+            // $config->removeComponentsByType(GridField_ActionMenu::class);
+            // $config->removeComponentsByType(GridField_ActionMenuItem::class);
 
             $parent_id = $this->request->requestVar('ParentID') ?: 0;
 
@@ -189,6 +194,7 @@ class MetaEditor extends ModelAdmin
                         'MetaEditorPageColumn'        => 'Page',
                         'MetaEditorTitleColumn'       => 'Meta Title',
                         'MetaEditorDescriptionColumn' => 'Meta Description',
+                        'MetaEditorSEOColumn' => 'SEO',
                         // 'MetaEditorPageLinkColumn'    => '',
                     ]
                 );
@@ -196,7 +202,9 @@ class MetaEditor extends ModelAdmin
             $config->addComponent(new MetaEditorPageColumn());
             $config->addComponent(new MetaEditorTitleColumn());
             $config->addComponent(new MetaEditorDescriptionColumn());
-            $config->addComponent(new MetaEditorPageLinkColumn());
+            $config->addComponent(new MetaEditorSEOColumn());
+            // $config->addComponent(new MetaEditorPageLinkColumn());
+            $config->addComponent(new GridFieldEditNoInlineButton());
         }
 
         return $form;
