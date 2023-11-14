@@ -111,7 +111,7 @@ class MetaEditor extends ModelAdmin
      *
      * @var string
      */
-    private static $menu_icon = 'axllent/silverstripe-meta-editor: images/MetaEditor.svg';
+    private static $menu_icon = 'goldfinch/silverstripe-meta-editor: images/MetaEditor.svg';
 
     /**
      * CMS managed modals
@@ -130,8 +130,8 @@ class MetaEditor extends ModelAdmin
     public function init()
     {
         parent::init();
-        Requirements::css('axllent/silverstripe-meta-editor: css/meta-editor.css');
-        Requirements::javascript('axllent/silverstripe-meta-editor: javascript/meta-editor.js');
+        Requirements::css('goldfinch/silverstripe-meta-editor: css/meta-editor.css');
+        Requirements::javascript('goldfinch/silverstripe-meta-editor: javascript/meta-editor.js');
     }
 
     /**

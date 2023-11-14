@@ -1,8 +1,8 @@
 {
-    "name": "axllent/silverstripe-meta-editor",
+    "name": "goldfinch/silverstripe-meta-editor",
     "description": "Meta Editor for Silverstripe",
     "type": "silverstripe-vendormodule",
-    "homepage": "https://github.com/axllent/silverstripe-meta-editor",
+    "homepage": "https://github.com/goldfinch/silverstripe-meta-editor",
     "keywords": [
         "silverstripe",
         "seo",
@@ -18,7 +18,7 @@
         }
     ],
     "support": {
-        "issues": "https://github.com/axllent/silverstripe-meta-editor/issues"
+        "issues": "https://github.com/goldfinch/silverstripe-meta-editor/issues"
     },
     "require": {
         "silverstripe/vendor-plugin": "^1.0 || ^2.0",

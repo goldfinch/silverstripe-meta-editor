@@ -1,5 +1,7 @@
 # Silverstripe Meta Editor
 
+* This is fork of [axllent/silverstripe-meta-editor](https://github.com/axllent/silverstripe-meta-editor)
+
 The Silverstripe Meta Editor interface allows easy editing of Meta Titles and Meta Descriptions
 for pages within a customised ModelAdmin interface.
 
