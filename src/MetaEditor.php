@@ -188,21 +188,29 @@ class MetaEditor extends ModelAdmin
                 $config->addComponent($uplink);
             }
 
+            $displayFields = [
+                'MetaEditorPageColumn'        => 'Page',
+                'MetaEditorTitleColumn'       => 'Meta Title',
+                'MetaEditorDescriptionColumn' => 'Meta Description',
+                // 'MetaEditorPageLinkColumn'    => '',
+            ];
+
+            if (class_exists(MetaEditorSEOColumn::class))
+            {
+                $displayFields['MetaEditorSEOColumn'] = 'SEO';
+            }
+
             $config->getComponentByType(GridFieldDataColumns::class)
-                ->setDisplayFields(
-                    [
-                        'MetaEditorPageColumn'        => 'Page',
-                        'MetaEditorTitleColumn'       => 'Meta Title',
-                        'MetaEditorDescriptionColumn' => 'Meta Description',
-                        'MetaEditorSEOColumn' => 'SEO',
-                        // 'MetaEditorPageLinkColumn'    => '',
-                    ]
-                );
+                ->setDisplayFields($displayFields);
 
             $config->addComponent(new MetaEditorPageColumn());
             $config->addComponent(new MetaEditorTitleColumn());
             $config->addComponent(new MetaEditorDescriptionColumn());
-            $config->addComponent(new MetaEditorSEOColumn());
+
+            if (class_exists(MetaEditorSEOColumn::class))
+            {
+                $config->addComponent(new MetaEditorSEOColumn());
+            }
             // $config->addComponent(new MetaEditorPageLinkColumn());
             $config->addComponent(new GridFieldEditNoInlineButton());
         }
