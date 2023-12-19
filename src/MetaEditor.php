@@ -210,9 +210,9 @@ class MetaEditor extends ModelAdmin
             if (class_exists(MetaEditorSEOColumn::class))
             {
                 $config->addComponent(new MetaEditorSEOColumn());
+                $config->addComponent(new GridFieldEditNoInlineButton());
             }
             // $config->addComponent(new MetaEditorPageLinkColumn());
-            $config->addComponent(new GridFieldEditNoInlineButton());
         }
 
         return $form;
