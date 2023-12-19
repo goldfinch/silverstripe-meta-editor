@@ -102,17 +102,19 @@ class MetaEditorDescriptionColumn extends MetaEditorTitleColumn
 
         $errors = [];
 
-        if (!$record->{$description_field}
-            || strlen($record->{$description_field}) < $description_min
+        $descriptionField = $record->{$description_field};
+
+        if (!$descriptionField
+            || ($descriptionField && strlen($descriptionField) < $description_min)
         ) {
             $errors[] = 'meta-editor-error-too-short';
-        } elseif ($record->{$description_field}
-            && strlen($record->{$description_field}) > $description_max
+        } elseif ($descriptionField
+            && strlen($descriptionField) > $description_max
         ) {
             $errors[] = 'meta-editor-error-too-long';
-        } elseif ($record->{$description_field}
+        } elseif ($descriptionField
             && self::getAllEditableRecords()
-                ->filter($description_field, $record->{$description_field})->count() > 1
+                ->filter($description_field, $descriptionField)->count() > 1
         ) {
             $errors[] = 'meta-editor-error-duplicate';
         }

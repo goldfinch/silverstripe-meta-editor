@@ -109,13 +109,15 @@ class MetaEditorTitleColumn extends GridFieldDataColumns implements GridField_Co
 
         $errors = [];
 
-        if (strlen($record->{$title_field}) < $title_min) {
+        $titleField = $record->{$title_field};
+
+        if ($titleField && strlen($titleField) < $title_min) {
             $errors[] = 'meta-editor-error-too-short';
-        } elseif (strlen($record->{$title_field}) > $title_max) {
+        } elseif ($titleField && strlen($titleField) > $title_max) {
             $errors[] = 'meta-editor-error-too-long';
         } elseif (
-            $record->{$title_field}
-            && self::getAllEditableRecords()->filter($title_field, $record->{$title_field})->count() > 1
+            $titleField
+            && self::getAllEditableRecords()->filter($title_field, $titleField)->count() > 1
         ) {
             $errors[] = 'meta-editor-error-duplicate';
         }
