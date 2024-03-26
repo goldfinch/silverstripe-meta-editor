@@ -113,6 +113,9 @@ class MetaEditor extends ModelAdmin
      */
     private static $menu_icon = 'goldfinch/silverstripe-meta-editor: images/MetaEditor.svg';
 
+    // set current tab
+    protected $modelTab = SiteTree::class;
+
     /**
      * CMS managed modals
      *
@@ -294,5 +297,21 @@ class MetaEditor extends ModelAdmin
         }
 
         return $list->count() ? $list : SiteTree::get()->filter('ID', 0);
+    }
+
+    public function getManagedModelTabs()
+    {
+        $tabs = parent::getManagedModelTabs();
+        $tabs = $tabs->sort('Title', 'DESC');
+
+        // foreach ($tabs as $k => $tab) {
+        //     if ($k === 0) {
+        //         $tab->LinkOrCurrent = 'current';
+        //     } else {
+        //         $tab->LinkOrCurrent = 'link';
+        //     }
+        // }
+
+        return $tabs;
     }
 }
