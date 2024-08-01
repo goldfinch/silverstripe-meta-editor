@@ -281,9 +281,9 @@ class MetaEditor extends ModelAdmin
             }
         }
 
-        // if (!$search_filter) {
-        //     $list = $list->filter('ParentID', $parent_id);
-        // }
+        if (!$search_filter) {
+            $list = $list->filter('ParentID', $parent_id);
+        }
 
         $fluent = Injector::inst()->get(SiteTree::class)
             ->hasExtension(FluentSiteTreeExtension::class) && Locale::get()->count();
